@@ -1,0 +1,65 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+@import 'core/variables';
+@import 'core/mixins';
+@import 'core/shadows';
+@import 'core/misc';
+
+// core sass
+@import 'core/form';
+@import 'core/buttons';
+@import 'core/checkboxes';
+@import 'core/togglebutton';
+@import 'core/radios';
+@import 'core/inputs';
+@import 'core/pagination';
+@import 'core/labels';
+@import 'core/pills';
+
+@import 'core/navbar';
+@import 'core/dropdown';
+@import 'core/alerts';
+@import 'core/progress';
+@import 'core/typography';
+@import 'core/tabs';
+@import 'core/popups';
+@import 'core/carousel';
+@import 'core/cards';
+@import 'core/dialogs';
+@import 'core/panels';
+@import 'core/dividers';
+
+@import 'core/images';
+@import 'core/media';
+@import 'core/info-areas';
+@import 'core/tables';
+@import 'core/select';
+@import 'core/tags';
+@import 'core/fileupload';
+@import 'core/flexisel';
+
+
+@import 'core/sections';
+
+// External plugins
+@import 'core/plugins/_plugin-nouislider';
+@import 'core/plugins/_plugin-datetime-picker';
+@import 'core/plugins/_plugin-bootstrap-select';
+
+@import 'core/ripples';
+@import 'core/example-pages';
+
+@import 'core/responsive';
+
