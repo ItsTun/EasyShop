@@ -10,7 +10,17 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
+//= require core/jquery.min
+//= require core/bootstrap.min
+//= require core/material.min
+//= require core/moment.min
+//= require core/nouislider.min
+//= require core/bootstrap-datetimepicker
+//= require core/bootstrap-selectpicker
+//= require core/bootstrap-tagsinput
+//= require core/jasny-bootstrap.min
+//= require core/material-kit

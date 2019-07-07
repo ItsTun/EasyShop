@@ -12,6 +12,10 @@
  *
  *= require_self
  */
+@import 'core/bootstrap.min';
+@import 'core/material-kit';
+@import 'core/font';
+@import 'core/icon';
 @import 'core/variables';
 @import 'core/mixins';
 @import 'core/shadows';

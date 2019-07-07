@@ -1,0 +1,60 @@
+.container
+  .row
+    .col-md-10.col-md-offset-1
+      .card.card-signup
+        %h2.card-title.text-center Register
+        .row
+          .col-md-5.col-md-offset-1
+            .info.info-horizontal
+              .icon.icon-rose
+                %i.material-icons timeline
+              .description
+                %h4.info-title Marketing
+                %p.description
+                  We've created the marketing campaign of the website. It was a very interesting collaboration.
+            .info.info-horizontal
+              .icon.icon-primary
+                %i.material-icons code
+              .description
+                %h4.info-title Fully Coded in HTML5
+                %p.description
+                  We've developed the website with HTML5 and CSS3. The client has access to the code using GitHub.
+            .info.info-horizontal
+              .icon.icon-info
+                %i.material-icons group
+              .description
+                %h4.info-title Built Audience
+                %p.description
+                  There is also a Fully Customizable CMS Admin Dashboard for this product.
+          .col-md-5
+            .social.text-center
+              %button.btn.btn-just-icon.btn-round.btn-twitter
+                %i.fa.fa-twitter
+              %button.btn.btn-just-icon.btn-round.btn-dribbble
+                %i.fa.fa-dribbble
+              %button.btn.btn-just-icon.btn-round.btn-facebook
+                %i.fa.fa-facebook
+              %h4 or be classical
+            %form.form{:action => "", :method => ""}
+              .card-content
+                .input-group
+                  %span.input-group-addon
+                    %i.material-icons face
+                  %input.form-control{:placeholder => "First Name...", :type => "text"}/
+                .input-group
+                  %span.input-group-addon
+                    %i.material-icons email
+                  %input.form-control{:placeholder => "Email...", :type => "text"}/
+                .input-group
+                  %span.input-group-addon
+                    %i.material-icons lock_outline
+                  %input.form-control{:placeholder => "Password...", :type => "password"}/
+                / If you want to add a checkbox to this form, uncomment this code
+                .checkbox
+                  %label
+                    %input{:checked => "checked", :name => "optionsCheckboxes", :type => "checkbox"}/
+                    I agree to the
+                    = succeed "." do
+                      %a{:href => "#something"} terms and conditions
+              .footer.text-center
+                %a.btn.btn-primary.btn-round{:href => "#pablo"} Get Started
