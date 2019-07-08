@@ -10,11 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_06_095828) do
+ActiveRecord::Schema.define(version: 2019_07_08_170058) do
 
   create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "discount_products", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "discount_id"
+    t.index ["discount_id"], name: "index_discount_products_on_discount_id"
+    t.index ["product_id"], name: "index_discount_products_on_product_id"
+  end
+
+  create_table "discounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "discount_code"
+    t.string "discount_type"
+    t.integer "discount_value"
+    t.string "min_requirements"
+    t.date "discount_start_date"
+    t.date "discount_end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
