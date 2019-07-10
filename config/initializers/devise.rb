@@ -9,7 +9,17 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '29b4f9835f841b3bc643fff0ab98e0c45dcac01785c7c30753500e195da1f37d5ca19a5615ef08497713fa625c3f5813b89541ab4659a22510639ac28e58e697'
-  
+  config.jwt do |jwt|
+    jwt.secret = Figaro.env.DEVISE_JWT_SECRET_KEY
+    jwt.dispatch_requests = [
+      ['POST', %r{^/login$}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/logout$}]
+    ]
+    jwt.expiration_time = 1.day.to_i
+  end
+  config.navigational_formats = []
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'

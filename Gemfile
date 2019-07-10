@@ -39,9 +39,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Additional Configuration
 gem 'mysql2'
 gem 'devise'
-gem "haml-rails", "~> 2.0"
+gem 'haml-rails', '~> 2.0'
 gem 'image_processing', '~> 1.2'
-gem "figaro"
+gem 'figaro'
+gem 'devise-jwt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
