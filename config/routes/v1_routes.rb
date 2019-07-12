@@ -1,15 +1,14 @@
 scope "v1", defaults: {format: :json} do
   constraints subdomain: 'api'  do
-    devise_for :users,
-             path: '',
-             path_names: {
-               sign_in: 'login',
-               sign_out: 'logout',
-               registration: 'signup'
-             },
-             controllers: {
-               sessions: 'api/v1/sessions',
-               registrations: 'api/v1/registrations'
-             }
+    devise_scope :user do
+      post "/login", to: "api/v1/sessions#create"
+      delete "/logout", to: "api/v1/sessions#destroy"
+      post "/register", to: "api/v1/registrations#create"
+      # post "/set_email", to: "api/v1/registrations#set_email"
+      # patch "/change_password", to: "api/v1/registrations#update"
+      # put "/change_password", to: "api/v1/registrations#update"
+      # post "/reset_password", to: "api/v1/passwords#create"
+      # post "/validates_username", to: "api/v1/registrations#validates_username"
+    end
   end
 end

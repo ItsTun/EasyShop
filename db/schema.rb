@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_10_150741) do
+ActiveRecord::Schema.define(version: 2019_07_12_164101) do
 
   create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2019_07_10_150741) do
     t.string "image_file_size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "product_id"
   end
 
   create_table "jwt_blacklist", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -80,7 +81,6 @@ ActiveRecord::Schema.define(version: 2019_07_10_150741) do
     t.integer "quantity"
     t.integer "collection_id"
     t.integer "shop_owner_id"
-    t.integer "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

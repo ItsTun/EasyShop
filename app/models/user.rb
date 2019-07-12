@@ -19,16 +19,15 @@ class User < ApplicationRecord
 
   validates :contact_number,
       presence: true,
-      length: {maximum: 15,minimum: 6}, unless: Proc.new {contact_number_required? }
-
-  validate :contact_number_uniqueness
+      length: {maximum: 15,minimum: 6}
 
   validates :user_type, :inclusion => { :in =>  USER_TYPES }, :allow_nil => true, :allow_blank => true
 
   has_many :user_roles, dependent: :destroy, class_name: "UserRole"
   has_many :collections, dependent: :destroy, class_name: "Collection"
   has_many :products, dependent: :destroy, class_name: "Prodcut"
-  has_many :orders, dependent: :destroy, class_name: "Order"
+  has_many :shop_orders, dependent: :destroy, class_name: "Order"
+  has_one :user_order, dependent: :destroy, class_name: "Order"
   has_many :discounts, dependent: :destroy, class_name: "UserRole"
 
 end

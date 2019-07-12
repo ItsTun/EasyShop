@@ -18,5 +18,7 @@ FactoryBot.define do
     user_name { generate(:username) }
     user_type { "customer" }
     contact_number { generate(:contact_number) }
+    password {"changeme"}
+    password_confirmation {"changeme"}
   end
 end
