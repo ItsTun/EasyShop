@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_13_031902) do
+ActiveRecord::Schema.define(version: 2019_07_13_034930) do
 
   create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "shop_owner_id"
   end
 
   create_table "discount_products", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -36,7 +35,7 @@ ActiveRecord::Schema.define(version: 2019_07_13_031902) do
     t.date "discount_end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "shop_owner_id"
+    t.integer "shop_id"
   end
 
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -73,7 +72,7 @@ ActiveRecord::Schema.define(version: 2019_07_13_031902) do
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "shop_owner_id"
+    t.integer "shop_id"
     t.string "order_type"
     t.integer "amount"
     t.datetime "created_at", null: false
@@ -87,7 +86,7 @@ ActiveRecord::Schema.define(version: 2019_07_13_031902) do
     t.integer "original_price"
     t.integer "quantity"
     t.integer "collection_id"
-    t.integer "shop_owner_id"
+    t.integer "shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -101,6 +100,13 @@ ActiveRecord::Schema.define(version: 2019_07_13_031902) do
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "shop_collections", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "shop_id"
+    t.bigint "collection_id"
+    t.index ["collection_id"], name: "index_shop_collections_on_collection_id"
+    t.index ["shop_id"], name: "index_shop_collections_on_shop_id"
   end
 
   create_table "shop_deliveries", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -11,6 +11,5 @@ FactoryBot.define do
   factory :collection, :class => 'Collection' do
     title { generate(:title) }
     description { generate(:description) }
-    association :shop, factory: :user
   end
 end

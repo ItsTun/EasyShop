@@ -1,6 +1,6 @@
 class Collection < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
-  belongs_to :shop, class_name: "User", foreign_key: :shop_id
   has_many :products
+  has_and_belongs_to_many :shops, class_name: 'User', association_foreign_key: "shop_id", foreign_key: "collection_id"
 end
