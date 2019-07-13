@@ -31,8 +31,8 @@ class User < ApplicationRecord
   has_many :shop_orders, dependent: :destroy, class_name: "Order"
   has_many :discounts, dependent: :destroy, class_name: "UserRole"
   has_and_belongs_to_many :delivery_orders, class_name: 'Order', association_foreign_key: "delivery_id", foreign_key: "product_id"
-  has_and_belongs_to_many :deliveries, class_name: 'User', association_foreign_key: "delivery_id", foreign_key: "shop_owner_id"
-  has_and_belongs_to_many :shops, class_name: 'User', association_foreign_key: "shop_owner_id", foreign_key: "delivery_id"
+  has_and_belongs_to_many :deliveries, class_name: 'User', association_foreign_key: "delivery_id", foreign_key: "shop_id"
+  has_and_belongs_to_many :shops, class_name: 'User', association_foreign_key: "shop_id", foreign_key: "delivery_id"
 
   after_create :assign_default_role
 
