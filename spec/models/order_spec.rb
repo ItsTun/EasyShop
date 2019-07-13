@@ -36,5 +36,14 @@ RSpec.describe Collection, type: :model do
       end
       expect(order.order_line_items.count).to eq(2)
     end
+
+    it "should should has many deliveries" do
+      order = FactoryBot.create :order
+      delivery = FactoryBot.create :user, user_type: 'delivery'
+      2.times do
+        FactoryBot.create :order_delivery_map, order: order, delivery: delivery
+      end
+      expect(order.deliveries.count).to eq(2)
+    end
   end
 end

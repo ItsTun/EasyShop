@@ -29,10 +29,10 @@ class User < ApplicationRecord
   has_one :user_order, dependent: :destroy, class_name: "Order", foreign_key: :user_id
   has_many :shop_orders, dependent: :destroy, class_name: "Order", foreign_key: :shop_id
   has_many :discounts, dependent: :destroy, class_name: "Discount", foreign_key: :shop_id
-  has_and_belongs_to_many :delivery_orders, class_name: 'Order', association_foreign_key: "delivery_id", foreign_key: "product_id"
-  has_and_belongs_to_many :deliveries, class_name: 'User', association_foreign_key: "delivery_id", foreign_key: "shop_id"
-  has_and_belongs_to_many :shops, class_name: 'User', association_foreign_key: "shop_id", foreign_key: "delivery_id"
-  has_and_belongs_to_many :collections, class_name: 'Collection', association_foreign_key: "collection_id", foreign_key: "shop_id"
+  has_and_belongs_to_many :delivery_orders, class_name: 'Order', association_foreign_key: "order_id", foreign_key: "delivery_id", :join_table => :deliveries_orders
+  has_and_belongs_to_many :deliveries, class_name: 'User', association_foreign_key: "delivery_id", foreign_key: "shop_id", :join_table => :shop_deliveries
+  has_and_belongs_to_many :shops, class_name: 'User', association_foreign_key: "shop_id", foreign_key: "delivery_id", :join_table => :shop_deliveries
+  has_and_belongs_to_many :collections, class_name: 'Collection', association_foreign_key: "collection_id", foreign_key: "shop_id", :join_table => :shop_collections
 
   after_create :assign_default_role
 

@@ -40,5 +40,14 @@ RSpec.describe Product, type: :model do
       end
       expect(product.images.count).to eq(2)
     end
+
+    it "should has many discounts" do
+      discount = FactoryBot.create :discount
+      product = FactoryBot.create :product
+      2.times do
+        FactoryBot.create :discount_product_map, discount: discount, product: product
+      end
+      expect(product.discounts.count).to eq(2)
+    end
   end
 end

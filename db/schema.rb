@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_13_034930) do
+ActiveRecord::Schema.define(version: 2019_07_13_123747) do
 
   create_table "collections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "deliveries_orders", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "delivery_id"
+    t.index ["delivery_id"], name: "index_deliveries_orders_on_delivery_id"
+    t.index ["order_id"], name: "index_deliveries_orders_on_order_id"
   end
 
   create_table "discount_products", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -52,13 +59,6 @@ ActiveRecord::Schema.define(version: 2019_07_13_034930) do
   create_table "jwt_blacklist", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "jti", null: false
     t.index ["jti"], name: "index_jwt_blacklist_on_jti"
-  end
-
-  create_table "order_deliveries", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "order_id"
-    t.bigint "delivery_id"
-    t.index ["delivery_id"], name: "index_order_deliveries_on_delivery_id"
-    t.index ["order_id"], name: "index_order_deliveries_on_order_id"
   end
 
   create_table "order_line_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

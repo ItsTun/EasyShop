@@ -23,5 +23,12 @@ RSpec.describe Collection, type: :model do
       end
       expect(@collection.products.count).to eq(2)
     end
+
+    it "should has many shops" do
+      2.times do
+        FactoryBot.create :shop_collection_map, shop: @shop, collection: @collection
+      end
+      expect(@collection.shops.count).to eq(2)
+    end
   end
 end

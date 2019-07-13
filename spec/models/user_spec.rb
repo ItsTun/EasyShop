@@ -14,6 +14,7 @@ RSpec.describe Discount, type: :model do
      @user1 = FactoryBot.create :user, user_type: 'customer'
      @user2 = FactoryBot.create :user, user_type: 'customer'
      @shop = FactoryBot.create :user, user_type: 'shop'
+     @delivery = FactoryBot.create :user, user_type: 'delivery'
      @collection = FactoryBot.create :collection
     end
 
@@ -47,6 +48,29 @@ RSpec.describe Discount, type: :model do
     it "should has many user roles" do
       @user1.add_role :admin
       expect(@user1.roles.count).to eq(2)
+    end
+
+    it "has and belongs to many delivery orders" do
+      order = FactoryBot.create :order
+      2.times do
+        FactoryBot.create :order_delivery_map, order: order, delivery: @delivery
+      end
+      expect(@delivery.delivery_orders.count).to eq(2)
+    end
+
+    it "has and belongs to many deliveries & shops" do
+      2.times do
+        FactoryBot.create :shop_delivery_map, shop: @shop, delivery: @delivery
+      end
+      expect(@shop.deliveries.count).to eq(2)
+      expect(@delivery.shops.count).to eq(2)
+    end
+
+    it "has and belongs to many collections" do
+      2.times do
+        FactoryBot.create :shop_collection_map, shop: @shop, collection: @collection
+      end
+      expect(@shop.collections.count).to eq(2)
     end
   end
 end
