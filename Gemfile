@@ -43,6 +43,7 @@ gem 'haml-rails', '~> 2.0'
 gem 'image_processing', '~> 1.2'
 gem 'figaro'
 gem 'devise-jwt'
+gem 'rolify'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

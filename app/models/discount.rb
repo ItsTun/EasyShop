@@ -7,5 +7,5 @@ class Discount < ApplicationRecord
   validates :discount_end_date, presence: true
 
   belongs_to :shop, class_name: "User", foreign_key: :shop_owner_id
-  has_many :discount_products
+  has_and_belongs_to_many :products, class_name: 'Product', association_foreign_key: "product_id", foreign_key: "discount_id"
 end
