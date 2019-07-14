@@ -27,6 +27,9 @@ scope 'v1', defaults: {format: :json} do
 
       #order
       get '/:shop_id/orders', to: '/api/v1/shop/orders#index'
+      get '/:shop_id/order/deliveries', to: 'api/v1/shop/orders#delivery'
+      put '/:shop_id/order/delivery', to: '/api/v1/shop/products#choose_delivery'
+      patch '/:shop_id/order/delivery', to: '/api/v1/shop/products#choose_delivery'
     end
   end
 end

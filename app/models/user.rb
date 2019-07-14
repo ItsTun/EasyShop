@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # test gitlab bot
-  USER_TYPES = %w(customer shop delivery)
+  USER_TYPES = %w(user shop delivery)
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable,
@@ -23,10 +23,16 @@ class User < ApplicationRecord
   # has_many :delivery_order_maps, class_name: "OrderDeliveryMap", foreign_key: "order_id", dependent: :destroy
   # has_many :delivery_orders, class_name: "User", through: :delivery_order_maps
 
-  after_create :assign_default_role
+  after_create :assign_user_type_role
 
-  def assign_default_role
-    self.add_role(:user) if self.roles.blank?
+  def assign_user_type_role
+    if self.user_type == 'user'
+      self.add_role(:user)
+    elsif self.user_type == 'shop'
+      self.add_role(:shop)
+    else
+      self.add_role(:delivery)
+    end
   end
 
 end
