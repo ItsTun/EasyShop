@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_and_belongs_to_many :deliveries, class_name: 'User', association_foreign_key: "delivery_id", foreign_key: "shop_id", :join_table => :shop_deliveries
   has_and_belongs_to_many :shops, class_name: 'User', association_foreign_key: "shop_id", foreign_key: "delivery_id", :join_table => :shop_deliveries
   has_and_belongs_to_many :collections, class_name: 'Collection', association_foreign_key: "collection_id", foreign_key: "shop_id", :join_table => :shop_collections
+  # has_many :delivery_order_maps, class_name: "OrderDeliveryMap", foreign_key: "order_id", dependent: :destroy
+  # has_many :delivery_orders, class_name: "User", through: :delivery_order_maps
 
   after_create :assign_default_role
 
