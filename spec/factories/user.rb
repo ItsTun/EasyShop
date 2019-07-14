@@ -8,13 +8,17 @@ FactoryBot.define do
     "test-user#{n}"
   end
 
+  sequence :name do |n|
+    "Name#{n}"
+  end
+
   sequence :contact_number do |n|
      "0942003849#{n}"
   end
 
   factory :user, :class => 'User' do
     email { generate(:email) }
-    name { "Tun Han Mra" }
+    name { generate(:name) }
     user_name { generate(:username) }
     user_type { "customer" }
     contact_number { generate(:contact_number) }

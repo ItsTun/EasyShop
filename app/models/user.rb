@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  rolify after_add: -> (user,role){ user.touch }, after_remove: -> (user,role){ user.touch }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # test gitlab bot
