@@ -41,7 +41,6 @@ RSpec.describe Collection, type: :model do
       order = FactoryBot.create :order
       delivery = FactoryBot.create :user, user_type: 'delivery'
       FactoryBot.create :order_delivery_map, order: order, delivery: delivery
-      byebug
       expect(order.delivery).to eq(delivery)
     end
   end
