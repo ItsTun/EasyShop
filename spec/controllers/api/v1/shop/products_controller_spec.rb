@@ -40,7 +40,7 @@ RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
   describe "update" do
     it "shoud update existed product" do
       product = FactoryBot.create :product
-      put :update, params: {product: product_attributes.merge(title: "Update"),shop_id: @shop.id, id: product.id, format: :json }
+      get :show, params: {shop_id: shop.id, format: :json }
       expect(Product.last.title).to eq("Update")
     end
   end

@@ -27,9 +27,14 @@ scope 'v1', defaults: {format: :json} do
 
       #order
       get '/:shop_id/orders', to: '/api/v1/shop/orders#index'
-      get '/:shop_id/order/deliveries', to: 'api/v1/shop/orders#delivery'
-      put '/:shop_id/order/delivery', to: '/api/v1/shop/products#choose_delivery'
-      patch '/:shop_id/order/delivery', to: '/api/v1/shop/products#choose_delivery'
+      post '/:shop_id/order', to: '/api/v1/shop/orders#create'
+      get '/:shop_id/order/:id', to: '/api/v1/shop/orders#show'
+      put '/:shop_id/order/:id', to: '/api/v1/shop/orders#update'
+      delete '/:shop_id/order/:id', to: '/api/v1/shop/orders#destroy'
+      post '/:shop_id/order/:id', to: '/api/v1/shop/orders#delete'
+      get '/:shop_id/delivery', to: '/api/v1/shop/orders#delivery'
+      put '/:shop_id/delivery/:id', to: '/api/v1/shop/orders#choose_delivery'
+      patch '/:shop_id/delivery/:id', to: '/api/v1/shop/orders#choose_delivery'
     end
   end
 end

@@ -9,8 +9,6 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtBlacklist
 
-  validates :user_type, :inclusion => { :in =>  USER_TYPES }, :allow_nil => true, :allow_blank => true
-
   has_many :user_roles, dependent: :destroy, class_name: "UserRole"
   has_many :products, dependent: :destroy, class_name: "Product", foreign_key: :shop_id
   has_one :user_order, dependent: :destroy, class_name: "Order", foreign_key: :user_id

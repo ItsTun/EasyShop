@@ -6,6 +6,12 @@ RSpec.describe Collection, type: :model do
     expect(order).to be_persisted
   end
 
+  let(:product_ids) {
+   product_ids = []
+   product_ids << (FactoryBot.create :product).id
+   product_ids << (FactoryBot.create :product).id
+  }
+
   context "validations" do
   end
 
