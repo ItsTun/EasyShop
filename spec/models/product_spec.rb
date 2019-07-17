@@ -31,12 +31,9 @@ RSpec.describe Product, type: :model do
     end
 
     it "should has many images" do
-      product = FactoryBot.create :product,
-                                  collection: @collection,
-                                  shop: @shop
+      product = FactoryBot.create :product, collection: @collection, shop: @shop
       2.times do
-        FactoryBot.create :image,
-                           product: product
+        product.images.attach(io: File.new(Rails.root.join('public', 'test.png')), filename: 'test.png')
       end
       expect(product.images.count).to eq(2)
     end

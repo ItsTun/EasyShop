@@ -32,17 +32,6 @@ RSpec.describe Collection, type: :model do
       expect(order.shop).to eq(@shop)
     end
 
-    it "has many order line items" do
-      order = FactoryBot.create :order, user: @user, shop: @shop
-      product = FactoryBot.create :product, collection: @collection, shop: @shop
-      2.times do
-        FactoryBot.create :order_line_item,
-                           order: order,
-                           product: product
-      end
-      expect(order.order_line_items.count).to eq(2)
-    end
-
     it "has one delivery" do
       order = FactoryBot.create :order
       delivery = FactoryBot.create :user, user_type: 'delivery'
