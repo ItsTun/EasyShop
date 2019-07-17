@@ -27,6 +27,14 @@ RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
           post :create, params: {product: product_attributes, shop_id: @shop.id, format: :json }
         }.to change(Product, :count).by(1)
     end
+
+    it "should create a product with images" do
+      product = FactoryBot.create :product, collection: @collection, shop: @shop
+      2.times do
+        product.images.attach(io: File.new(Rails.root.join('public', 'test.png')), filename: 'test.png')
+      end
+      expect(product.images.count).to eq(2)
+    end
   end
 
   describe "show" do
@@ -40,7 +48,7 @@ RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
   describe "update" do
     it "shoud update existed product" do
       product = FactoryBot.create :product
-      get :show, params: {shop_id: shop.id, format: :json }
+      put :update, params: {product: product.attributes.merge(title: 'Update'),shop_id: @shop.id, id: product.id, format: :json }
       expect(Product.last.title).to eq("Update")
     end
   end

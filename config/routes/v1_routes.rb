@@ -25,16 +25,30 @@ scope 'v1', defaults: {format: :json} do
       patch '/:shop_id/product/:id', to: '/api/v1/shop/products#update'
       delete '/:shop_id/product/:id', to: '/api/v1/shop/products#destroy'
 
+      #images
+      get '/:shop_id/product/:product_id/image/:image_id', to: '/api/v1/shop/images#show'
+      delete '/:shop_id/product/:product_id/image/:image_id', to: '/api/v1/shop/images#destroy'
+
       #order
       get '/:shop_id/orders', to: '/api/v1/shop/orders#index'
       post '/:shop_id/order', to: '/api/v1/shop/orders#create'
       get '/:shop_id/order/:id', to: '/api/v1/shop/orders#show'
       put '/:shop_id/order/:id', to: '/api/v1/shop/orders#update'
+      patch '/:shop_id/order/:id', to: '/api/v1/shop/orders#update'
       delete '/:shop_id/order/:id', to: '/api/v1/shop/orders#destroy'
-      post '/:shop_id/order/:id', to: '/api/v1/shop/orders#delete'
       get '/:shop_id/delivery', to: '/api/v1/shop/orders#delivery'
       put '/:shop_id/delivery/:id', to: '/api/v1/shop/orders#choose_delivery'
       patch '/:shop_id/delivery/:id', to: '/api/v1/shop/orders#choose_delivery'
+
+      #discount
+      get '/:shop_id/discounts', to: '/api/v1/shop/discounts#index'
+      post '/:shop_id/discount', to: '/api/v1/shop/discounts#create'
+      put '/:shop_id/discount/:id', to: '/api/v1/shop/discounts#update'
+      patch '/:shop_id/discount/:id', to: '/api/v1/shop/discounts#update'
+      get '/:shop_id/discount/:id', to: '/api/v1/shop/discounts#show'
+      delete '/:shop_id/discounts', to: '/api/v1/shop/discounts#destroy'
+
+
     end
   end
 end
