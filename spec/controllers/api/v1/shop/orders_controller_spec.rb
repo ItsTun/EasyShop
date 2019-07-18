@@ -6,14 +6,14 @@ RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
     @user = FactoryBot.create :user, user_type: 'customer'
   end
 
-  let(:order_line_item_ids) {
-   order_line_item_ids = []
-   order_line_item_ids << (FactoryBot.create :product).id
-   order_line_item_ids << (FactoryBot.create :product).id
+  let(:product_ids) {
+   product_ids = []
+   product_ids << (FactoryBot.create :product).id
+   product_ids << (FactoryBot.create :product).id
   }
   let(:order_attributes) {
    order = FactoryBot.create :order, user: @user, shop: @shop
-   order.attributes.merge(order_line_item_ids: order_line_item_ids)
+   order.attributes.merge(product_ids: product_ids)
   }
 
   let(:delivery_order_ids) {
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
       expect {
           post :create, params: {order: order_attributes, shop_id: @shop.id, format: :json }
         }.to change(Order, :count).by(2)
-      expect(Order.last.order_line_items.count).to eq(2)
+      expect(Order.last.products.count).to eq(2)
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
     it "shoud update existed order" do
       order = FactoryBot.create :order, user: @user, shop: @shop
       put :update, params: {order: order_attributes,shop_id: @shop.id, id: order.id, format: :json }
-      expect(assigns(:order).order_line_items.count).to eq(2)
+      expect(assigns(:order).products.count).to eq(2)
     end
   end
 

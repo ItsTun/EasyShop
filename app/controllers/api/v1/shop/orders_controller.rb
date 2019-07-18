@@ -63,7 +63,7 @@ class Api::V1::Shop::OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:user_id, :shop_id, :order_type, :amount, order_line_item_ids: [])
+    params.require(:order).permit(:user_id, :shop_id, :order_type, :amount, product_ids: [])
   end
 
   def delivery_params

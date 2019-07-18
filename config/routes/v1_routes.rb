@@ -12,6 +12,9 @@ scope 'v1', defaults: {format: :json} do
     end
 
     namespace :shop do
+      #home
+      get '/:shop_id/collections', to: '/api/v1/shop/home#index'
+
       #collection
       get '/collection', to: '/api/v1/shop/collections#index'
       post '/:shop_id/collection', to: '/api/v1/shop/collections#create'
@@ -20,7 +23,7 @@ scope 'v1', defaults: {format: :json} do
       #product
       get '/:shop_id/products', to: '/api/v1/shop/products#index'
       post '/:shop_id/product', to: '/api/v1/shop/products#create'
-      post '/:shop_id/product/:id', to: '/api/v1/shop/products#show'
+      get '/:shop_id/product/:id', to: '/api/v1/shop/products#show'
       put '/:shop_id/product/:id', to: '/api/v1/shop/products#update'
       patch '/:shop_id/product/:id', to: '/api/v1/shop/products#update'
       delete '/:shop_id/product/:id', to: '/api/v1/shop/products#destroy'
@@ -48,7 +51,9 @@ scope 'v1', defaults: {format: :json} do
       get '/:shop_id/discount/:id', to: '/api/v1/shop/discounts#show'
       delete '/:shop_id/discounts', to: '/api/v1/shop/discounts#destroy'
 
-
+      #user
+      get '/:shop_id/product/:id', to: '/api/v1/user/products#show'
+      post '/:shop_id/order', to: '/api/v1/user/orders#create'
     end
   end
 end

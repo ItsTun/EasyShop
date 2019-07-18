@@ -46,12 +46,12 @@ class Api::V1::Shop::DiscountsController < ApplicationController
 
   def discount_params
     params.require(:discount).permit(:shop_id,
-                                       :discount_code,
-                                       :discount_type,
-                                       :discount_value,
-                                       {:min_requirements => [:none, :quantity, :amount]},
-                                       :discount_start_date,
-                                       :discount_end_date,
-                                       product_ids: [])
+                                     :discount_code,
+                                     :discount_type,
+                                     :discount_value,
+                                     {:min_requirements => [:none, :quantity, :amount]},
+                                     :discount_start_date,
+                                     :discount_end_date,
+                                     product_ids: [])
   end
 end
