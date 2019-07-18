@@ -4,14 +4,14 @@ module ProductSearchable
   include AlgoliaSearch
   included do
     # algolia autocomplete model reindex
-    algoliasearch per_environment: true, disable_indexing: Rails.env.test? , if: :active do
+    algoliasearch per_environment: true do
 
       attributesForFaceting [
+        'shop.name',
+        'collection.title',
         'title',
         'description',
-        'price',
-        'collection.title',
-        'shop.name'
+        'price'
       ]
 
       add_replica 'Product_by_shop_desc', per_environment: true do
@@ -43,18 +43,13 @@ module ProductSearchable
       end
 
       attribute :collection do
-        {
-          id: collection_id,
-          title: collection.title
-        }
+        collection.title
       end
 
       attribute :shop do
-        {
-          id: shop_id,
-          name: shop.name
-        }
+        shop.name
       end
+
 
       attribute :images do
         {
