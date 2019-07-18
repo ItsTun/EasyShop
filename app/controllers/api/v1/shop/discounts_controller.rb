@@ -49,7 +49,7 @@ class Api::V1::Shop::DiscountsController < ApplicationController
                                        :discount_code,
                                        :discount_type,
                                        :discount_value,
-                                       :min_requirements,
+                                       {:min_requirements => [:none, :quantity, :amount]},
                                        :discount_start_date,
                                        :discount_end_date,
                                        product_ids: [])
