@@ -6,6 +6,12 @@ RSpec.describe Discount, type: :model do
     expect(user).to be_persisted
   end
 
+  let(:subscriber_ids) {
+    subscriber_ids = []
+    subscriber_ids << (FactoryBot.create :user, user_type: 'user').id
+    subscriber_ids << (FactoryBot.create :user, user_type: 'user').id
+  }
+
   context "validations" do
   end
 
@@ -63,7 +69,7 @@ RSpec.describe Discount, type: :model do
         FactoryBot.create :shop_delivery_map, shop: @shop, delivery: @delivery
       end
       expect(@shop.deliveries.count).to eq(2)
-      expect(@delivery.shops.count).to eq(2)
+      expect(@delivery.delivery_shops.count).to eq(2)
     end
 
     it "has and belongs to many collections" do
@@ -71,6 +77,11 @@ RSpec.describe Discount, type: :model do
         FactoryBot.create :shop_collection_map, shop: @shop, collection: @collection
       end
       expect(@shop.collections.count).to eq(2)
+    end
+
+    it "has many subscribers" do
+      shop = FactoryBot.create :user, user_type: shop, subscriber_ids: subscriber_ids
+      expect(shop.subscribers.count).to eq(2)
     end
   end
 end
