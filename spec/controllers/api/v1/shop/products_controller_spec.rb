@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
   before(:example) do
     @shop = FactoryBot.create :user, user_type: 'shop'
-    @collection = FactoryBot.create :collection
+    @collection = FactoryBot.create :collection, shop: @shop
     @product = FactoryBot.attributes_for :product
   end
 
@@ -14,7 +14,7 @@ RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
   describe "index" do
     it "should return all collections of shop" do
       3.times do
-        FactoryBot.create :product, shop: @shop
+        FactoryBot.create :product, shop: @shop, collection: @collection
       end
       get :index, params: {shop_id: @shop.id, format: :json }
       expect(assigns(:products).count).to eq(3)
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
 
   describe "show" do
     it "should show product detail of shop" do
-      product = FactoryBot.create :product
+      product = FactoryBot.create :product, shop: @shop, collection: @collection
       get :show, params: {shop_id: @shop.id, id: product.id, format: :json }
       expect(assigns(:product)).to eq(product)
     end
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
 
   describe "update" do
     it "shoud update existed product" do
-      product = FactoryBot.create :product
+      product = FactoryBot.create :product, shop: @shop, collection: @collection
       put :update, params: {product: product.attributes.merge(title: 'Update'),shop_id: @shop.id, id: product.id, format: :json }
       expect(Product.last.title).to eq("Update")
     end
@@ -55,7 +55,7 @@ RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested product" do
-      product = FactoryBot.create :product
+      product = FactoryBot.create :product, shop: @shop, collection: @collection
       expect {
         delete :destroy, params: {shop_id: @shop.id, id: product.id}
       }.to change(Product, :count).by(-1)

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Shop::DiscountsController, type: :controller do
   before(:example) do
     @shop = FactoryBot.create :user, user_type: 'shop'
-    @collection = FactoryBot.create :collection
+    @collection = FactoryBot.create :collection, shop: @shop
   end
 
   let(:discount_attributes) {

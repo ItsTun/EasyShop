@@ -21,7 +21,7 @@ RSpec.describe Discount, type: :model do
      @user2 = FactoryBot.create :user, user_type: 'customer'
      @shop = FactoryBot.create :user, user_type: 'shop'
      @delivery = FactoryBot.create :user, user_type: 'delivery'
-     @collection = FactoryBot.create :collection
+     @collection = FactoryBot.create :collection, shop: @shop
     end
 
     it "should has one user order if user is customer" do
@@ -72,9 +72,10 @@ RSpec.describe Discount, type: :model do
       expect(@delivery.delivery_shops.count).to eq(2)
     end
 
-    it "has and belongs to many collections" do
+    it "has many collections" do
+      @shop = FactoryBot.create :user, user_type: 'shop'
       2.times do
-        FactoryBot.create :shop_collection_map, shop: @shop, collection: @collection
+        FactoryBot.create :collection, shop: @shop
       end
       expect(@shop.collections.count).to eq(2)
     end

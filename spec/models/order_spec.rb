@@ -19,7 +19,7 @@ RSpec.describe Collection, type: :model do
     before(:example) do
      @user = FactoryBot.create :user, user_type: 'customer'
      @shop = FactoryBot.create :user, user_type: 'shop'
-     @collection = FactoryBot.create :collection
+     @collection = FactoryBot.create :collection, shop: @shop
     end
 
     it "should belongs to user" do

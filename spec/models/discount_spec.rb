@@ -12,6 +12,7 @@ RSpec.describe Collection, type: :model do
   describe "relationship associations" do
     before(:example) do
      @shop = FactoryBot.create :user, user_type: 'shop'
+     @collection = FactoryBot.create :collection, shop: @shop
     end
 
     it "belongs to shop" do
@@ -21,7 +22,7 @@ RSpec.describe Collection, type: :model do
 
     it "has many products" do
       discount = FactoryBot.create :discount
-      product = FactoryBot.create :product
+      product = FactoryBot.create :product, shop: @shop, collection: @collection
       2.times do
         FactoryBot.create :discount_product_map, discount: discount, product: product
       end

@@ -1,16 +1,9 @@
 class Api::V1::Shop::CollectionsController < ApplicationController
   before_action :set_shop, only: [:create,:show]
   def index
-    @collections = Collection.all
-    render json: Api::V1::Shop::CollectionSerializer.new(@collections).serialized_json
   end
 
   def create
-    if @shop.update(collection_params)
-      render json: {success: true,message: 'Collection Successfully Created!'},status: 200
-    else
-      render json: { success: false}, status: :unprocessable_entity
-    end
   end
 
   def show
