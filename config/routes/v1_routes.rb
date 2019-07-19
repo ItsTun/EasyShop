@@ -18,7 +18,10 @@ scope 'v1', defaults: {format: :json} do
       #collection
       get '/collection', to: '/api/v1/shop/collections#index'
       post '/:shop_id/collection', to: '/api/v1/shop/collections#create'
+      put '/:shop_id/collection/:id', to: '/api/v1/shop/collections#update'
+      patch '/:shop_id/collection/:id', to: '/api/v1/shop/collections#update'
       get '/:shop_id/collection', to: '/api/v1/shop/collections#show'
+      delete '/:shop_id/collection/:id', to: '/api/v1/shop/collections#destroy'
 
       #product
       get '/:shop_id/products', to: '/api/v1/shop/products#index'

@@ -1,14 +1,38 @@
 class Api::V1::Shop::CollectionsController < ApplicationController
-  before_action :set_shop, only: [:create,:show]
+  before_action :set_shop, only: [:update, :show, :destroy]
+
   def index
+    @collections = Collection.where(shop_id: params[:shop_id])
   end
 
   def create
+    @collection = Collection.new collection_params
+    if @collection.save
+      render json: {success: true,message: 'Collection Successfully Created!'},status: 200
+    else
+      render json: { success: false}, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @collection.update collection_params
+      render json: Api::V1::Shop::CollectionSerializer.new(@collections).serialized_json, status: 200
+    else
+      render json: { success: false}, status: :unprocessable_entity
+    end
   end
 
   def show
-    if @shop.present?
-      render json: Api::V1::Shop::CollectionSerializer.new(@shop.collections).serialized_json, status: 200
+    if @collection.present?
+      render json: Api::V1::Shop::CollectionSerializer.new(@collection).serialized_json, status: 200
+    else
+      render json: { success: false}, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @collection.destroy
+      render json: {success: true,message: 'Collection Successfully Deleted!'},status: 200
     else
       render json: { success: false}, status: :unprocessable_entity
     end
@@ -17,10 +41,10 @@ class Api::V1::Shop::CollectionsController < ApplicationController
   private
 
   def set_shop
-    @shop = User.find(params[:shop_id])
+    @collection = Collection.find(params[:id])
   end
 
   def collection_params
-    params.require(:collection).permit(collection_ids: [])
+    params.require(:collection).permit(:title, :description, :shop_id)
   end
 end
