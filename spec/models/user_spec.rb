@@ -51,6 +51,16 @@ RSpec.describe Discount, type: :model do
       expect(@shop.discounts.count).to eq(2)
     end
 
+    it "should has many transactions" do
+      pricing = FactoryBot.create :pricing
+      2.times do
+        FactoryBot.create :transaction,
+                          user: @shop,
+                          pricing: pricing
+      end
+      expect(@shop.transactions.count).to eq(2)
+    end
+
     it "should has many user roles" do
       @user1.add_role :admin
       expect(@user1.roles.count).to eq(2)

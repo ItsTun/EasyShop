@@ -1,0 +1,2 @@
+1|Pro Ads|15000|month|Shopies' Pro Ads For 1 month
+2|Premium Ads|30000|month|Shopies' Premium Ads For 1 month
