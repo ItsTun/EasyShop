@@ -3,6 +3,7 @@ class Api::V1::Shop::CollectionsController < ApplicationController
 
   def index
     @collections = Collection.where(shop_id: params[:shop_id])
+    render json: Api::V1::Shop::CollectionSerializer.new(@collections).serialized_json, status: 200
   end
 
   def create
@@ -16,7 +17,7 @@ class Api::V1::Shop::CollectionsController < ApplicationController
 
   def update
     if @collection.update collection_params
-      render json: Api::V1::Shop::CollectionSerializer.new(@collections).serialized_json, status: 200
+      render json: Api::V1::Shop::CollectionSerializer.new(@collection).serialized_json, status: 200
     else
       render json: { success: false}, status: :unprocessable_entity
     end
