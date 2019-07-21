@@ -20,6 +20,7 @@ RSpec.describe Discount, type: :model do
      @user1 = FactoryBot.create :user, user_type: 'customer'
      @user2 = FactoryBot.create :user, user_type: 'customer'
      @shop = FactoryBot.create :user, user_type: 'shop'
+     @pricing = FactoryBot.create :pricing
      @delivery = FactoryBot.create :user, user_type: 'delivery'
      @collection = FactoryBot.create :collection, shop: @shop
     end
@@ -51,15 +52,13 @@ RSpec.describe Discount, type: :model do
       expect(@shop.discounts.count).to eq(2)
     end
 
-    it "should has many transactions" do
-      pricing = FactoryBot.create :pricing
+    it "should has many fulfilled orders" do
       2.times do
-        FactoryBot.create :transaction,
-                          user: @shop,
-                          pricing: pricing
+        FactoryBot.create :shop_order, user: @shop, pricing: @pricing, fulfiller: @user1
       end
-      expect(@shop.transactions.count).to eq(2)
+      expect(@user1.fulfilled_orders.count).to eq(2)
     end
+
 
     it "should has many user roles" do
       @user1.add_role :admin

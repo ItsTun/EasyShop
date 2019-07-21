@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_16_064940) do
+ActiveRecord::Schema.define(version: 2019_07_21_143637) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_07_16_064940) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "shop_id"
   end
 
   create_table "deliveries_orders", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -98,6 +99,15 @@ ActiveRecord::Schema.define(version: 2019_07_16_064940) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pricings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.string "unit"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -133,6 +143,29 @@ ActiveRecord::Schema.define(version: 2019_07_16_064940) do
     t.bigint "delivery_id"
     t.index ["delivery_id"], name: "index_shop_deliveries_on_delivery_id"
     t.index ["shop_id"], name: "index_shop_deliveries_on_shop_id"
+  end
+
+  create_table "shop_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "pricing_id"
+    t.integer "quantity"
+    t.string "status"
+    t.string "payment_method"
+    t.datetime "start_at"
+    t.datetime "expired_at"
+    t.integer "fulfilled_by"
+    t.datetime "fulfilled_at"
+    t.integer "fulfilled_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "orderable_type"
+  end
+
+  create_table "shops_subscribers", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "shop_id"
+    t.bigint "user_id"
+    t.index ["shop_id"], name: "index_shops_subscribers_on_shop_id"
+    t.index ["user_id"], name: "index_shops_subscribers_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

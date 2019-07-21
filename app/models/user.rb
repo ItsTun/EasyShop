@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_one :user_order, dependent: :destroy, class_name: "Order", foreign_key: :user_id
   has_many :shop_orders, dependent: :destroy, class_name: "Order", foreign_key: :shop_id
   has_many :discounts, dependent: :destroy, class_name: "Discount", foreign_key: :shop_id
+  has_many :fulfilled_orders, dependent: :destroy, class_name: "ShopOrder", foreign_key: :fulfilled_by
   has_many :collections, class_name: 'Collection', foreign_key: :shop_id
   has_many :transactions, class_name: 'Transaction', foreign_key: :user_id
   has_and_belongs_to_many :delivery_orders, class_name: 'Order', association_foreign_key: "order_id", foreign_key: "delivery_id", :join_table => :deliveries_orders
