@@ -1,12 +1,13 @@
 class Api::V1::Shop::ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
+  before_action :set_category, only: [:create]
   def index
     @products = Product.where(shop_id: params[:shop_id])
     render json: Api::V1::Shop::ProductSerializer.new(@products).serialized_json
   end
 
   def create
-    @product = Product.new product_params
+    @product = Product.new product_params.merge(category_id: set_category)
     if @product.save
       render json: {success: true,message: 'Product Successfully Created!'},status: 200
     else
@@ -46,6 +47,10 @@ class Api::V1::Shop::ProductsController < ApplicationController
 
   def set_product
     @product = Product.find_by(id: params[:id])
+  end
+
+  def set_category
+    @category_id = Collection.find(product_params[:collection_id]).category.id
   end
 
   def product_params

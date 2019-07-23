@@ -46,6 +46,6 @@ class Api::V1::Shop::CollectionsController < ApplicationController
   end
 
   def collection_params
-    params.require(:collection).permit(:title, :description, :shop_id)
+    params.require(:collection).permit(:title, :description, :shop_id, :category_id)
   end
 end

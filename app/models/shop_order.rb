@@ -40,6 +40,10 @@ class ShopOrder < ApplicationRecord
     quantity.send pricing.unit
   end
 
+  def cancel
+    change_status("cancelled")
+  end
+
   def build_fulfill_hash(fulfilled_by = nil, fulfilled_price = nil)
     built = {
       fulfilled_at: Time.now,
@@ -80,5 +84,9 @@ class ShopOrder < ApplicationRecord
   def _overwrite_fulfiller(fulfilled_by)
     self.fulfiller = fulfilled_by if self.fulfiller.nil? && !fulfilled_by.nil?
     self.fulfiller
+  end
+
+  def change_status(status)
+    update status: status
   end
 end
