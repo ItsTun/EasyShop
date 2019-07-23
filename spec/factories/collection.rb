@@ -12,5 +12,6 @@ FactoryBot.define do
     title { generate(:title) }
     description { generate(:description) }
     association :shop, factory: :user
+    association :category, factory: :category
   end
 end

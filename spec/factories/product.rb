@@ -6,5 +6,6 @@ FactoryBot.define do
     quantity { 3 }
     association :collection, factory: :collection
     association :shop, factory: :user
+    association :category, factory: :category
   end
 end
