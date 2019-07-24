@@ -1,4 +1,4 @@
-class Api::V1::Shop::ImagesController < ApplicationController
+class Api::V1::Shop::ImagesController < ApiController
   before_action :set_image
 
   def show

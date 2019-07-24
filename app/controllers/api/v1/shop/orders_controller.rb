@@ -1,4 +1,4 @@
-class Api::V1::Shop::OrdersController < ApplicationController
+class Api::V1::Shop::OrdersController < ApiController
   before_action :set_delivery, only: [:choose_delivery]
   before_action :set_order, only: [:show, :update, :destroy]
   def index

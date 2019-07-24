@@ -1,4 +1,4 @@
-class Api::V1::Shop::ProductsController < ApplicationController
+class Api::V1::Shop::ProductsController < ApiController
   before_action :set_product, only: [:show, :update, :destroy]
   before_action :set_category, only: [:create]
   def index

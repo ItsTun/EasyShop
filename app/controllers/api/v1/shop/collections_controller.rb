@@ -1,4 +1,4 @@
-class Api::V1::Shop::CollectionsController < ApplicationController
+class Api::V1::Shop::CollectionsController < ApiController
   before_action :set_shop, only: [:update, :show, :destroy]
 
   def index

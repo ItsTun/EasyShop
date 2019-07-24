@@ -1,4 +1,4 @@
-class Api::V1::User::SubscriptionsController < ApplicationController
+class Api::V1::User::SubscriptionsController < ApiController
   before_action :set_shop, only: [:create]
 
   def create

@@ -1,4 +1,4 @@
-class Api::V1::User::ProductsController < ApplicationController
+class Api::V1::User::ProductsController < ApiController
   before_action :set_product, only: [:show]
 
   def show

@@ -1,4 +1,4 @@
-class Api::V1::Shop::DiscountsController < ApplicationController
+class Api::V1::Shop::DiscountsController < ApiController
   before_action :set_discount, only: [:show, :update, :destroy]
 
   def index
