@@ -1,4 +1,6 @@
 class ApiController < ActionController::API
+  include Pundit
+
   def render_resource(resource)
     if resource.errors.empty?
       render json: resource

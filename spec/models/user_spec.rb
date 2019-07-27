@@ -89,6 +89,11 @@ RSpec.describe Discount, type: :model do
       expect(@shop.collections.count).to eq(2)
     end
 
+    it "has one avatar" do
+      @user1.avatar.attach(io: File.new(Rails.root.join('public', 'test.png')), filename: 'test.png')
+      expect(@user1.avatar.attached?).to eq(true)
+    end
+
     it "has many subscribers" do
       shop = FactoryBot.create :user, user_type: shop, subscriber_ids: subscriber_ids
       expect(shop.subscribers.count).to eq(2)
