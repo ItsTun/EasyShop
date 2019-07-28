@@ -1,6 +1,9 @@
 class Api::V1::Shop::ProductsController < ApiController
+  before_action :authenticate_user!
   before_action :set_product, only: [:show, :update, :destroy]
   before_action :set_category, only: [:create]
+  after_action :verify_authorized
+
   def index
     @products = Product.where(shop_id: params[:shop_id])
     render json: Api::V1::Shop::ProductSerializer.new(@products).serialized_json

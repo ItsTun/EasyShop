@@ -1,6 +1,9 @@
 class Api::V1::Shop::OrdersController < ApiController
+  before_action :authenticate_user!
   before_action :set_delivery, only: [:choose_delivery]
   before_action :set_order, only: [:show, :update, :destroy]
+  after_action :verify_authorized
+
   def index
     @orders = Order.where(shop_id: params[:shop_id])
     render json: Api::V1::Shop::OrderSerializer.new(@orders).serialized_json

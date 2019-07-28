@@ -1,5 +1,7 @@
 class Api::V1::Shop::DiscountsController < ApiController
+  before_action :authenticate_user!
   before_action :set_discount, only: [:show, :update, :destroy]
+  after_action :verify_authorized
 
   def index
     @discounts = Discount.where(shop_id: params[:shop_id])

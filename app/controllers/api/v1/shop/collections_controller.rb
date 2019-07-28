@@ -1,5 +1,7 @@
 class Api::V1::Shop::CollectionsController < ApiController
+  before_action :authenticate_user!
   before_action :set_shop, only: [:update, :show, :destroy]
+  after_action :verify_authorized
 
   def index
     @collections = Collection.where(shop_id: params[:shop_id])

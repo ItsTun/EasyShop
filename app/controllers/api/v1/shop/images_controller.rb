@@ -1,5 +1,7 @@
 class Api::V1::Shop::ImagesController < ApiController
+  before_action :authenticate_user!
   before_action :set_image
+  after_action :verify_authorized
 
   def show
     if @image
