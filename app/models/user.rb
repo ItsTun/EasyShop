@@ -30,6 +30,8 @@ class User < ApplicationRecord
       self.add_role(:user)
     elsif self.user_type == 'shop'
       self.add_role(:shop)
+    elsif self.user_type == 'admin'
+      self.add_role(:admin)
     else
       self.add_role(:delivery)
     end

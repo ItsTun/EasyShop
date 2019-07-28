@@ -1,27 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe Shop::ImagePolicy, type: :policy do
-  let(:user) { User.new }
+  let(:shop) { FactoryBot.create :user, user_type: 'shop' }
+  let(:category) { FactoryBot.create :category }
+  let(:collection) { FactoryBot.create :collection }
+  let(:product) { FactoryBot.create :product, collection: collection, shop: shop, category: category}
 
-  subject { described_class }
+  subject { Shop::ImagePolicy }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  permissions :show?, :destroy? do
+    it "allows shop owner" do
+      product.images.attach(io: File.new(Rails.root.join('public', 'test.png')), filename: 'test.png')
+      expect(subject).to permit(shop, product.images.first)
+    end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+    it "allows admin" do
+      product.images.attach(io: File.new(Rails.root.join('public', 'test.png')), filename: 'test.png')
+      user = FactoryBot.create :user, user_type: 'admin'
+      expect(subject).to permit(user, product.images.first)
+    end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it "doesn't allow other users" do
+      product.images.attach(io: File.new(Rails.root.join('public', 'test.png')), filename: 'test.png')
+      user = FactoryBot.create :user, id: 3
+      expect(subject).not_to permit(user, product.images.first)
+    end
   end
 end

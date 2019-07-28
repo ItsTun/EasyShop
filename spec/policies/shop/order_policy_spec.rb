@@ -1,27 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe Shop::OrderPolicy, type: :policy do
-  let(:user) { User.new }
+  let(:shop) { FactoryBot.create :user, user_type: 'shop' }
+  let(:user) { FactoryBot.create :user }
+  let(:order) { FactoryBot.create :order, user: user, shop: shop}
 
-  subject { described_class }
+  subject { Shop::OrderPolicy }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  permissions :index?, :new?, :create?, :show?, :update?, :destroy? do
+    it "allows shop owner" do
+      expect(subject).to permit(shop, order)
+    end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+    it "allows admin" do
+      user = FactoryBot.create :user, user_type: 'admin'
+      expect(subject).to permit(user, order)
+    end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it "doesn't allow other users" do
+      user = FactoryBot.create :user, id: 3
+      expect(subject).not_to permit(user, order)
+    end
   end
 end

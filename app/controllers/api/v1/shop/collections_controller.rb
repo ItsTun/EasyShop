@@ -5,11 +5,13 @@ class Api::V1::Shop::CollectionsController < ApiController
 
   def index
     @collections = Collection.where(shop_id: params[:shop_id])
+    authorize @collections.first
     render json: Api::V1::Shop::CollectionSerializer.new(@collections).serialized_json, status: 200
   end
 
   def create
     @collection = Collection.new collection_params
+    authorize @collection
     if @collection.save
       render json: {success: true,message: 'Collection Successfully Created!'},status: 200
     else
@@ -18,6 +20,7 @@ class Api::V1::Shop::CollectionsController < ApiController
   end
 
   def update
+    authorize @collection
     if @collection.update collection_params
       render json: Api::V1::Shop::CollectionSerializer.new(@collection).serialized_json, status: 200
     else
@@ -26,6 +29,7 @@ class Api::V1::Shop::CollectionsController < ApiController
   end
 
   def show
+    authorize @collection
     if @collection.present?
       render json: Api::V1::Shop::CollectionSerializer.new(@collection).serialized_json, status: 200
     else
@@ -34,6 +38,7 @@ class Api::V1::Shop::CollectionsController < ApiController
   end
 
   def destroy
+    authorize @collection
     if @collection.destroy
       render json: {success: true,message: 'Collection Successfully Deleted!'},status: 200
     else

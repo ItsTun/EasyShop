@@ -1,6 +1,6 @@
 class Shop::OrderPolicy < ApplicationPolicy
 
-  attr_reader :user, :order
+  attr_reader :shop, :order
 
   def initialize(user, order)
     @user = user
@@ -8,7 +8,7 @@ class Shop::OrderPolicy < ApplicationPolicy
   end
 
   def index?
-    user.has_role?(:admin) || user.has_role?(:shop) && collection.user == user
+    user.has_role?(:admin) || ( user.has_role?(:shop) && order.shop == user )
   end
 
   def show?
@@ -16,6 +16,14 @@ class Shop::OrderPolicy < ApplicationPolicy
   end
 
   def create?
+    index?
+  end
+
+  def delivery?
+    index?
+  end
+
+  def choose_delivery?
     index?
   end
 

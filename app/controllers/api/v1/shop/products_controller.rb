@@ -6,11 +6,13 @@ class Api::V1::Shop::ProductsController < ApiController
 
   def index
     @products = Product.where(shop_id: params[:shop_id])
+    authorize @products.first
     render json: Api::V1::Shop::ProductSerializer.new(@products).serialized_json
   end
 
   def create
     @product = Product.new product_params.merge(category_id: set_category)
+    authorize @product
     if @product.save
       render json: {success: true,message: 'Product Successfully Created!'},status: 200
     else
@@ -19,6 +21,7 @@ class Api::V1::Shop::ProductsController < ApiController
   end
 
   def show
+    authorize @product
     if @product.present?
       render json: Api::V1::Shop::ProductSerializer.new(@product).serialized_json
     else
@@ -27,6 +30,7 @@ class Api::V1::Shop::ProductsController < ApiController
   end
 
   def update
+    authorize @product
     if @product.present?
       if @product.update(product_params)
         render json: {success: true,message: 'Product Successfully Updated!'},status: 200
@@ -37,6 +41,7 @@ class Api::V1::Shop::ProductsController < ApiController
   end
 
   def destroy
+    authorize @product
     if @product.present?
       if @product.destroy
         render json: {success: true,message: 'Product Successfully Deleted!'},status: 200

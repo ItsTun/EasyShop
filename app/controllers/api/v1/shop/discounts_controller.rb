@@ -5,10 +5,13 @@ class Api::V1::Shop::DiscountsController < ApiController
 
   def index
     @discounts = Discount.where(shop_id: params[:shop_id])
+    authorize @discounts.first
+    render json: Api::V1::Shop::DiscountSerializer.new(@discounts).serialized_json
   end
 
   def create
     @discount = Discount.new discount_params
+    authorize @discount
     if @discount.save
       render json: {success: true,message: 'Collection Successfully Created!'},status: 200
     else
@@ -17,6 +20,7 @@ class Api::V1::Shop::DiscountsController < ApiController
   end
 
   def update
+    authorize @discount
     if @discount.update discount_params
       render json: Api::V1::Shop::DiscountSerializer.new(@discount).serialized_json
     else
@@ -25,6 +29,7 @@ class Api::V1::Shop::DiscountsController < ApiController
   end
 
   def show
+    authorize @discount
     if @discount
       render json: Api::V1::Shop::DiscountSerializer.new(@discount).serialized_json
     else
@@ -33,6 +38,7 @@ class Api::V1::Shop::DiscountsController < ApiController
   end
 
   def destroy
+    authorize @discount
     if @discount.destroy
       render json: {success: true,message: 'Collection Successfully Deleted!'},status: 200
     else

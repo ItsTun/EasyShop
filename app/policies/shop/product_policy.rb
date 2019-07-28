@@ -8,7 +8,7 @@ class Shop::ProductPolicy < ApplicationPolicy
   end
 
   def index?
-    user.has_role?(:admin) || user.has_role?(:shop) && collection.user == user
+    user.has_role?(:admin) || ( user.has_role?(:shop) && product.shop == user )
   end
 
   def show?

@@ -1,38 +1,18 @@
 class Shop::ImagePolicy < ApplicationPolicy
 
-  attr_reader :user, :collection
+  attr_reader :user, :image
 
-  def initialize(user, collection)
+  def initialize(user, image)
     @user = user
-    @collection = collection
-  end
-
-  def index?
-    user.has_role?(:admin) || user.has_role?(:shop) && collection.user == user
+    @image = image
   end
 
   def show?
-    index?
-  end
-
-  def create?
-    index?
-  end
-
-  def new?
-    index?
-  end
-
-  def update?
-    index?
-  end
-
-  def edit?
-    index?
+    user.has_role?(:admin) || user.has_role?(:shop)
   end
 
   def destroy?
-    index?
+    show?
   end
 
   class Scope < Scope
