@@ -1,4 +1,4 @@
-class Shop::ProductPolicy < ApplicationPolicy
+class ProductPolicy < ApplicationPolicy
 
   attr_reader :user, :product
 

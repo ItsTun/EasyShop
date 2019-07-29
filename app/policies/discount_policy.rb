@@ -1,14 +1,14 @@
-class Shop::CollectionPolicy < ApplicationPolicy
+class DiscountPolicy < ApplicationPolicy
 
-  attr_reader :user, :collection
+  attr_reader :user, :discount
 
-  def initialize(user, collection)
+  def initialize(user, discount)
     @user = user
-    @collection = collection
+    @discount = discount
   end
 
   def index?
-    user.has_role?(:admin) || ( user.has_role?(:shop) && collection.shop == user )
+    user.has_role?(:admin) || ( user.has_role?(:shop) && discount.shop == user )
   end
 
   def show?

@@ -1,4 +1,4 @@
-class Shop::OrderPolicy < ApplicationPolicy
+class OrderPolicy < ApplicationPolicy
 
   attr_reader :shop, :order
 

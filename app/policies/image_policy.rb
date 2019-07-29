@@ -1,4 +1,4 @@
-class Shop::ImagePolicy < ApplicationPolicy
+class ImagePolicy < ApplicationPolicy
 
   attr_reader :user, :image
 

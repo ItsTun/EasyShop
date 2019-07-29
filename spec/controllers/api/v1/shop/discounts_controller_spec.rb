@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Shop::DiscountsController, type: :controller do
   before(:example) do
     @shop = FactoryBot.create :user, user_type: 'shop'
+    sign_in @shop
     @collection = FactoryBot.create :collection, shop: @shop
   end
 
@@ -24,6 +25,12 @@ RSpec.describe Api::V1::Shop::DiscountsController, type: :controller do
       get :index, params: {shop_id: @shop.id, format: :json }
       expect(assigns(:discounts).count).to eq(3)
     end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      get :index, params: {shop_id: @shop.id, format: :json }
+      expect(response.status).to eq(401)
+    end
   end
 
   describe "#create" do
@@ -33,6 +40,12 @@ RSpec.describe Api::V1::Shop::DiscountsController, type: :controller do
         }.to change(Discount, :count).by(1)
       expect(assigns(:discount).products.count).to eq(2)
     end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      post :create, params: {discount: discount_attributes.merge(shop_id: @shop.id,product_ids: product_ids), shop_id: @shop.id, format: :json }
+      expect(response.status).to eq(401)
+    end
   end
 
   describe "#update" do
@@ -40,6 +53,13 @@ RSpec.describe Api::V1::Shop::DiscountsController, type: :controller do
       post :create, params: {discount: discount_attributes.merge(shop_id: @shop.id,product_ids: product_ids), shop_id: @shop.id, format: :json }
       put :update, params: {discount: Discount.last.attributes.merge(shop_id: @shop.id,product_ids: [Discount.last.products.first.id]),shop_id: @shop.id, id: Discount.last.id, format: :json }
       expect(Discount.last.products.count).to eq(1)
+    end
+
+    it "should respond error for unauthenticated request" do
+      post :create, params: {discount: discount_attributes.merge(shop_id: @shop.id,product_ids: product_ids), shop_id: @shop.id, format: :json }
+      sign_out @shop
+      put :update, params: {discount: Discount.last.attributes.merge(shop_id: @shop.id,product_ids: [Discount.last.products.first.id]),shop_id: @shop.id, id: Discount.last.id, format: :json }
+      expect(response.status).to eq(401)
     end
   end
 
@@ -49,6 +69,13 @@ RSpec.describe Api::V1::Shop::DiscountsController, type: :controller do
       get :show, params: {shop_id: @shop.id, id: discount.id, format: :json }
       expect(assigns(:discount)).to eq(discount)
     end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      discount = FactoryBot.create :discount, shop: @shop
+      get :show, params: {shop_id: @shop.id, id: discount.id, format: :json }
+      expect(response.status).to eq(401)
+    end
   end
 
   describe "#destroy" do
@@ -57,6 +84,13 @@ RSpec.describe Api::V1::Shop::DiscountsController, type: :controller do
       expect {
         delete :destroy, params: {shop_id: @shop.id, id: discount.id}
       }.to change(Discount, :count).by(-1)
+    end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      discount = FactoryBot.create :discount, shop: @shop
+      delete :destroy, params: {shop_id: @shop.id, id: discount.id}
+      expect(response.status).to eq(401)
     end
   end
 end

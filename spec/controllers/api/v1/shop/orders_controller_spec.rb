@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
   before(:example) do
     @shop = FactoryBot.create :user, user_type: 'shop'
+    sign_in @shop
     @collection = FactoryBot.create :collection, shop: @shop
     @user = FactoryBot.create :user, user_type: 'customer'
   end
@@ -32,6 +33,12 @@ RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
       get :index, params: {shop_id: @shop.id, format: :json }
       expect(assigns(:orders).count).to eq(3)
     end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      get :index, params: {shop_id: @shop.id, format: :json }
+      expect(response.status).to eq(401)
+    end
   end
 
   describe "create" do
@@ -41,6 +48,12 @@ RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
         }.to change(Order, :count).by(2)
       expect(Order.last.products.count).to eq(2)
     end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      post :create, params: {order: order_attributes, shop_id: @shop.id, format: :json }
+      expect(response.status).to eq(401)
+    end
   end
 
   describe "update" do
@@ -48,6 +61,13 @@ RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
       order = FactoryBot.create :order, user: @user, shop: @shop
       put :update, params: {order: order_attributes,shop_id: @shop.id, id: order.id, format: :json }
       expect(assigns(:order).products.count).to eq(2)
+    end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      order = FactoryBot.create :order, user: @user, shop: @shop
+      put :update, params: {order: order_attributes,shop_id: @shop.id, id: order.id, format: :json }
+      expect(response.status).to eq(401)
     end
   end
 
@@ -59,6 +79,12 @@ RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
       get :delivery, params: {shop_id: @shop.id, format: :json }
       expect(assigns(:deliveries).count).to eq(2)
     end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      get :delivery, params: {shop_id: @shop.id, format: :json }
+      expect(response.status).to eq(401)
+    end
   end
 
   describe "choose_delivery" do
@@ -66,6 +92,13 @@ RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
       delivery = FactoryBot.create :user, user_type: 'delivery'
       put :choose_delivery, params: {delivery: delivery.attributes.merge(delivery_order_ids: delivery_order_ids), shop_id: @shop.id, id: delivery.id}
       expect(assigns(:delivery).delivery_orders.count).to eq(2)
+    end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      delivery = FactoryBot.create :user, user_type: 'delivery'
+      put :choose_delivery, params: {delivery: delivery.attributes.merge(delivery_order_ids: delivery_order_ids), shop_id: @shop.id, id: delivery.id}
+      expect(response.status).to eq(401)
     end
   end
 
@@ -75,6 +108,13 @@ RSpec.describe Api::V1::Shop::OrdersController, type: :controller do
       expect {
         delete :destroy, params: {shop_id: @shop.id, id: order.id}
       }.to change(Order, :count).by(-1)
+    end
+
+    it "should respond error for unauthenticated request" do
+      sign_out @shop
+      order = FactoryBot.create :order, user: @user, shop: @shop
+      delete :destroy, params: {shop_id: @shop.id, id: order.id}
+      expect(response.status).to eq(401)
     end
   end
 end
