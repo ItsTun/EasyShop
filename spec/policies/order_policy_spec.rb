@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Shop::OrderPolicy, type: :policy do
+RSpec.describe OrderPolicy, type: :policy do
   let(:shop) { FactoryBot.create :user, user_type: 'shop' }
   let(:user) { FactoryBot.create :user }
   let(:order) { FactoryBot.create :order, user: user, shop: shop}
 
-  subject { Shop::OrderPolicy }
+  subject { OrderPolicy }
 
   permissions :index?, :new?, :create?, :show?, :update?, :destroy? do
     it "allows shop owner" do

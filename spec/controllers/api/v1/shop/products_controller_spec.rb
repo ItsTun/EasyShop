@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
   before(:example) do
     @shop = FactoryBot.create :user, user_type: 'shop'
+    sign_in @shop
     @collection = FactoryBot.create :collection, shop: @shop
     @product = FactoryBot.attributes_for :product
   end

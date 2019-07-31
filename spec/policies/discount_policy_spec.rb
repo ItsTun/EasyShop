@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Shop::DiscountPolicy, type: :policy do
+RSpec.describe DiscountPolicy, type: :policy do
   let(:user) { FactoryBot.create :user, user_type: 'shop' }
   let(:discount) { FactoryBot.create :discount, shop: user }
 
-  subject { Shop::DiscountPolicy }
+  subject { DiscountPolicy }
 
   permissions :index?, :new?, :create?, :show?, :update?, :destroy? do
     it "allows shop owner" do

@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Shop::ImagePolicy, type: :policy do
+RSpec.describe ImagePolicy, type: :policy do
   let(:shop) { FactoryBot.create :user, user_type: 'shop' }
   let(:category) { FactoryBot.create :category }
   let(:collection) { FactoryBot.create :collection }
   let(:product) { FactoryBot.create :product, collection: collection, shop: shop, category: category}
 
-  subject { Shop::ImagePolicy }
+  subject { ImagePolicy }
 
   permissions :show?, :destroy? do
     it "allows shop owner" do

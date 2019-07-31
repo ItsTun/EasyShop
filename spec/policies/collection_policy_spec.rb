@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Shop::CollectionPolicy, type: :policy do
+RSpec.describe CollectionPolicy, type: :policy do
   let(:user) { FactoryBot.create :user, user_type: 'shop' }
   let(:category) { FactoryBot.create :category }
   let(:collection) { FactoryBot.create :collection, shop: user, category: category }
 
-  subject { Shop::CollectionPolicy }
+  subject { CollectionPolicy }
 
   permissions :index?, :new?, :create?, :show?, :update?, :destroy? do
     it "allows shop owner" do
