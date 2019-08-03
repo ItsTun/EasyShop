@@ -1,7 +1,6 @@
 class Api::V1::User::OrdersController < ApiController
 
   def create
-    byebug
     @order = Order.new order_params
     if @order.save
       render json: {success: true,message: 'Order Successfully Created!'},status: 200
