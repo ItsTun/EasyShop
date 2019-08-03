@@ -57,6 +57,7 @@ scope 'v1', defaults: {format: :json} do
       #user
       get '/:shop_id/product/:id', to: '/api/v1/user/products#show'
       post '/:shop_id/order', to: '/api/v1/user/orders#create'
+      post '/:shop_id/favourite', to: '/api/v1/user/favourites#create'
 
       #subscriptions
       post '/:shop_id/subscription', to: '/api/v1/user/subscriptions#create'

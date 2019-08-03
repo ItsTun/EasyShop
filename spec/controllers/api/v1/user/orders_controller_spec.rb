@@ -5,6 +5,7 @@ RSpec.describe Api::V1::User::OrdersController, type: :controller do
     @shop = FactoryBot.create :user, user_type: 'shop'
     @collection = FactoryBot.create :collection, shop: @shop
     @user = FactoryBot.create :user, user_type: 'customer'
+    sign_in @user
   end
 
   let(:product_ids) {
@@ -19,6 +20,7 @@ RSpec.describe Api::V1::User::OrdersController, type: :controller do
 
   describe "create" do
     it "should create order" do
+      byebug
       expect {
           post :create, params: {order: order_attributes, shop_id: @shop.id, format: :json }
         }.to change(Order, :count).by(2)

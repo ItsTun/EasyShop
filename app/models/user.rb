@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :deliveries, class_name: 'User', association_foreign_key: "delivery_id", foreign_key: "shop_id", :join_table => :shop_deliveries
   has_and_belongs_to_many :delivery_shops, class_name: 'User', association_foreign_key: "shop_id", foreign_key: "delivery_id", :join_table => :shop_deliveries
   has_and_belongs_to_many :subscribers, class_name: 'User', association_foreign_key: "user_id", foreign_key: "shop_id", :join_table => :shops_subscribers
+  has_and_belongs_to_many :favourites, class_name: 'Product', association_foreign_key: "product_id", foreign_key: "user_id", :join_table => :favourites
 
   after_create :assign_user_type_role
 

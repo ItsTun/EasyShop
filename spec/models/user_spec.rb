@@ -12,6 +12,12 @@ RSpec.describe Discount, type: :model do
     subscriber_ids << (FactoryBot.create :user, user_type: 'user').id
   }
 
+  let(:favourite_ids) {
+    favourite_ids = []
+    favourite_ids << (FactoryBot.create :product).id
+    favourite_ids << (FactoryBot.create :product).id
+  }
+
   context "validations" do
   end
 
@@ -97,6 +103,11 @@ RSpec.describe Discount, type: :model do
     it "has many subscribers" do
       shop = FactoryBot.create :user, user_type: shop, subscriber_ids: subscriber_ids
       expect(shop.subscribers.count).to eq(2)
+    end
+
+    it "has many favourites" do
+      user = FactoryBot.create :user, favourite_ids: favourite_ids
+      expect(user.favourites.count).to eq(2)
     end
   end
 end
