@@ -20,6 +20,19 @@ RSpec.describe Api::V1::Shop::ProductsController, type: :controller do
       get :index, params: {shop_id: @shop.id, format: :json }
       expect(assigns(:products).count).to eq(3)
     end
+
+     it "should respond error for unauthorized user" do
+      sign_out @shop
+      user = FactoryBot.create :user
+      sign_in user
+      3.times do
+        FactoryBot.create :product, shop: @shop, collection: @collection
+      end
+      get :index, params: {shop_id: @shop.id, format: :json }
+      expect(response.status).to eq(422)
+      expect(response.successful?).to eq(false)
+      expect(response.message).to eq("Unprocessable Entity")
+    end
   end
 
   describe "create" do

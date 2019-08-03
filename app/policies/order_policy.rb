@@ -19,12 +19,8 @@ class OrderPolicy < ApplicationPolicy
     index?
   end
 
-  def delivery?
-    index?
-  end
-
   def choose_delivery?
-    index?
+    user.has_role?(:admin) ||  user.has_role?(:shop)
   end
 
   def new?

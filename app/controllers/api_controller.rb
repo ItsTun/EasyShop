@@ -1,6 +1,8 @@
 class ApiController < ActionController::API
   include Pundit
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def render_resource(resource)
     if resource.errors.empty?
       render json: resource
@@ -21,4 +23,9 @@ class ApiController < ActionController::API
       ]
     }, status: :bad_request
   end
+
+  private
+    def user_not_authorized
+      render json: {success: false, message: "You are not authorized for this action!"}, status: :unprocessable_entity
+    end
 end

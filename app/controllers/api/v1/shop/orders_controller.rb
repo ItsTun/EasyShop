@@ -1,8 +1,8 @@
 class Api::V1::Shop::OrdersController < ApiController
   before_action :authenticate_user!
   before_action :set_delivery, only: [:choose_delivery]
-  before_action :set_order, only: [:show, :update, :destroy, :delivery, :choose_delivery]
-  after_action :verify_authorized
+  before_action :set_order, only: [:show, :update, :destroy]
+  after_action :verify_authorized, except: [:delivery]
 
   def index
     @orders = Order.where(shop_id: params[:shop_id])
