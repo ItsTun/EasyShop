@@ -39,13 +39,12 @@ class Api::V1::Shop::OrdersController < ApiController
   end
 
   def delivery
-    authorize @order
     @deliveries = User.where(user_type: 'delivery')
     render json: Api::V1::UserSerializer.new(@deliveries).serialized_json
   end
 
   def choose_delivery
-    authorize @order
+    authorize Order.find(delivery_params[:delivery_order_ids].first)
     if @delivery.update delivery_params
       render json: {success: true,message: 'Delivery Successfully Selected!'},status: 200
     else
