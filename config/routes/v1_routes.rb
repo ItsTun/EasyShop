@@ -54,6 +54,12 @@ scope 'v1', defaults: {format: :json} do
       get '/:shop_id/discount/:id', to: '/api/v1/shop/discounts#show'
       delete '/:shop_id/discounts', to: '/api/v1/shop/discounts#destroy'
 
+      #impression
+      get '/:shop_id/home_impressions', to: '/api/v1/user/impressions#home'
+      get '/:shop_id/detail_impressions', to: '/api/v1/user/impressions#detail'
+      get '/:shop_id/product_impressions/:id', to: '/api/v1/user/impressions#product'
+      get '/:shop_id/total_impressions', to: '/api/v1/user/impressions#total'
+
       #user
       get '/:shop_id/products', to: '/api/v1/user/home#index'
       get '/:shop_id/product/:id', to: '/api/v1/user/products#show'
