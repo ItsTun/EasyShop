@@ -3,6 +3,6 @@ class Api::V1::Shop::HomeController < ApiController
   after_action :verify_authorized
 
   def index
-    @collections = Collection.where(shop_id: params[:shop_id])
+    @products = Product.where(shop_id: params[:shop_id])
   end
 end

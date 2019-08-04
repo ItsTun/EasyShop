@@ -20,7 +20,6 @@ RSpec.describe Api::V1::User::OrdersController, type: :controller do
 
   describe "create" do
     it "should create order" do
-      byebug
       expect {
           post :create, params: {order: order_attributes, shop_id: @shop.id, format: :json }
         }.to change(Order, :count).by(2)

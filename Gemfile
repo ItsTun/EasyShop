@@ -37,6 +37,7 @@ gem 'activeadmin'
 gem "pundit"
 gem 'rails_email_preview', '~> 2.2.1'
 gem 'fast_jsonapi'
+gem 'impressionist'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

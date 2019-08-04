@@ -55,6 +55,7 @@ scope 'v1', defaults: {format: :json} do
       delete '/:shop_id/discounts', to: '/api/v1/shop/discounts#destroy'
 
       #user
+      get '/:shop_id/products', to: '/api/v1/user/home#index'
       get '/:shop_id/product/:id', to: '/api/v1/user/products#show'
       post '/:shop_id/order', to: '/api/v1/user/orders#create'
       post '/:shop_id/favourite', to: '/api/v1/user/favourites#create'
