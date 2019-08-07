@@ -60,14 +60,23 @@ scope 'v1', defaults: {format: :json} do
       get '/:shop_id/product_impressions/:id', to: '/api/v1/user/impressions#product'
       get '/:shop_id/total_impressions', to: '/api/v1/user/impressions#total'
 
-      #user
+   #user
+      #product
       get '/:shop_id/products', to: '/api/v1/user/home#index'
       get '/:shop_id/product/:id', to: '/api/v1/user/products#show'
+
+      #order
+      get '/:shop_id/order', to: '/api/v1/user/orders#index'
       post '/:shop_id/order', to: '/api/v1/user/orders#create'
+
       post '/:shop_id/favourite', to: '/api/v1/user/favourites#create'
 
-      #subscriptions
       post '/:shop_id/subscription', to: '/api/v1/user/subscriptions#create'
+
+      get '/:shop_id/collections', to: '/api/v1/user/collections#index'
+
+      #dashboard
+      get '/:shop_id/dashboard', to: '/api/v1/user/dashboard#index'
     end
   end
 end

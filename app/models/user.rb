@@ -9,8 +9,8 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtBlacklist
 
-  has_one :user_order, dependent: :destroy, class_name: "Order", foreign_key: :user_id
   has_one_attached :avatar
+  has_many :user_orders, dependent: :destroy, class_name: "Order", foreign_key: :user_id
   has_many :user_roles, dependent: :destroy, class_name: "UserRole"
   has_many :products, dependent: :destroy, class_name: "Product", foreign_key: :shop_id
   has_many :shop_orders, dependent: :destroy, class_name: "Order", foreign_key: :shop_id

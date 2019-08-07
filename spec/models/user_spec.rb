@@ -31,8 +31,10 @@ RSpec.describe Discount, type: :model do
      @collection = FactoryBot.create :collection, shop: @shop
     end
 
-    it "should has one user order if user is customer" do
-      expect(@user1.user_order).to eq(@order1)
+    it "should has many user order if user is customer" do
+      FactoryBot.create :order, user: @user1, shop: @shop
+      FactoryBot.create :order, user: @user1, shop: @shop
+      expect(@user1.user_orders.count).to eq(2)
     end
 
     it "should has many shop orders if user is shop" do

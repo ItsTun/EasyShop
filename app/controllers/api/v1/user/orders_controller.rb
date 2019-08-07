@@ -1,4 +1,10 @@
 class Api::V1::User::OrdersController < ApiController
+  before_action :authenticate_user!
+
+  def index
+    @orders = current_user.user_orders
+    render json: Api::V1::Shop::OrderSerializer.new(@orders).serialized_json
+  end
 
   def create
     @order = Order.new order_params
