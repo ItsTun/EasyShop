@@ -1,5 +1,7 @@
-scope 'v1', defaults: {format: :json} do
-  constraints subdomain: 'api'  do
+# frozen_string_literal: true
+
+scope 'v1', defaults: { format: :json } do
+  constraints subdomain: 'api' do
     devise_scope :user do
       post '/login', to: 'api/v1/sessions#create'
       delete '/logout', to: 'api/v1/sessions#destroy'
@@ -12,10 +14,10 @@ scope 'v1', defaults: {format: :json} do
     end
 
     namespace :shop do
-      #home
+      # home
       get '/:shop_id/collections', to: '/api/v1/shop/home#index'
 
-      #collection
+      # collection
       get '/collection', to: '/api/v1/shop/collections#index'
       post '/:shop_id/collection', to: '/api/v1/shop/collections#create'
       put '/:shop_id/collection/:id', to: '/api/v1/shop/collections#update'
@@ -23,7 +25,7 @@ scope 'v1', defaults: {format: :json} do
       get '/:shop_id/collection', to: '/api/v1/shop/collections#show'
       delete '/:shop_id/collection/:id', to: '/api/v1/shop/collections#destroy'
 
-      #product
+      # product
       get '/:shop_id/products', to: '/api/v1/shop/products#index'
       post '/:shop_id/product', to: '/api/v1/shop/products#create'
       get '/:shop_id/product/:id', to: '/api/v1/shop/products#show'
@@ -31,11 +33,11 @@ scope 'v1', defaults: {format: :json} do
       patch '/:shop_id/product/:id', to: '/api/v1/shop/products#update'
       delete '/:shop_id/product/:id', to: '/api/v1/shop/products#destroy'
 
-      #images
+      # images
       get '/:shop_id/product/:product_id/image/:image_id', to: '/api/v1/shop/images#show'
       delete '/:shop_id/product/:product_id/image/:image_id', to: '/api/v1/shop/images#destroy'
 
-      #order
+      # order
       get '/:shop_id/orders', to: '/api/v1/shop/orders#index'
       post '/:shop_id/order', to: '/api/v1/shop/orders#create'
       get '/:shop_id/order/:id', to: '/api/v1/shop/orders#show'
@@ -46,7 +48,7 @@ scope 'v1', defaults: {format: :json} do
       put '/:shop_id/delivery/:id', to: '/api/v1/shop/orders#choose_delivery'
       patch '/:shop_id/delivery/:id', to: '/api/v1/shop/orders#choose_delivery'
 
-      #discount
+      # discount
       get '/:shop_id/discounts', to: '/api/v1/shop/discounts#index'
       post '/:shop_id/discount', to: '/api/v1/shop/discounts#create'
       put '/:shop_id/discount/:id', to: '/api/v1/shop/discounts#update'
@@ -54,28 +56,25 @@ scope 'v1', defaults: {format: :json} do
       get '/:shop_id/discount/:id', to: '/api/v1/shop/discounts#show'
       delete '/:shop_id/discounts', to: '/api/v1/shop/discounts#destroy'
 
-      #impression
+      # impression
       get '/:shop_id/home_impressions', to: '/api/v1/user/impressions#home'
       get '/:shop_id/detail_impressions', to: '/api/v1/user/impressions#detail'
       get '/:shop_id/product_impressions/:id', to: '/api/v1/user/impressions#product'
       get '/:shop_id/total_impressions', to: '/api/v1/user/impressions#total'
 
-   #user
-      #product
+      # user
+      # product
       get '/:shop_id/products', to: '/api/v1/user/home#index'
       get '/:shop_id/product/:id', to: '/api/v1/user/products#show'
 
-      #order
+      # order
       get '/:shop_id/order', to: '/api/v1/user/orders#index'
       post '/:shop_id/order', to: '/api/v1/user/orders#create'
-
       post '/:shop_id/favourite', to: '/api/v1/user/favourites#create'
-
       post '/:shop_id/subscription', to: '/api/v1/user/subscriptions#create'
-
       get '/:shop_id/collections', to: '/api/v1/user/collections#index'
 
-      #dashboard
+      # dashboard
       get '/:shop_id/dashboard', to: '/api/v1/user/dashboard#index'
     end
   end

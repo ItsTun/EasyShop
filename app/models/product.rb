@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  include ProductSearchable
+  # include ProductSearchable
   is_impressionable
   validates :title, presence: true
   validates :price, presence: true
