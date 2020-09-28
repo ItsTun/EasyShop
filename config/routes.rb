@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   mount RailsEmailPreview::Engine, at: 'emails'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root to: 'home#index'
   devise_for :users
   draw :v1_routes
 end
